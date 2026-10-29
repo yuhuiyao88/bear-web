@@ -33,9 +33,10 @@ export const POOL = [
   },
   {
     // A separate model version, so Google counts it against its own quota.
-    id: "gemini-2.5-flash-lite",
+    // (gemini-2.5-flash-lite is closed to new API keys.)
+    id: "gemini-3.1-flash-lite",
     provider: "gemini",
-    model: "gemini-2.5-flash-lite",
+    model: "gemini-3.1-flash-lite",
     key: "GEMINI_API_KEY",
     plots: true,
     weight: 0.95,
