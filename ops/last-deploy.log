@@ -15,11 +15,7 @@ Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more
 🌀 Building list of assets...
 ✨ Read 7 files from the assets directory /home/runner/work/bear-web/bear-web/public
 🌀 Starting asset upload...
-🌀 Found 1 new or modified static asset to upload. Proceeding with upload...
-+ /index.html
-Uploaded 1 of 1 asset
-✨ Success! Uploaded 1 file (6 already uploaded) (0.71 sec)
-
+No updated asset files to upload. Proceeding with deployment...
 Total Upload: 30.21 KiB / gzip: 10.67 KiB
 Your Worker has access to the following bindings:
 Binding                           Resource             
@@ -28,10 +24,10 @@ env.VECTORIZE (bear-index)        Vectorize Index
 env.AI                            AI                   
 env.ASSETS                        Assets               
 
-Uploaded bear (4.73 sec)
-Deployed bear triggers (0.57 sec)
+Uploaded bear (4.37 sec)
+Deployed bear triggers (0.44 sec)
   https://bear.yaolab.workers.dev
-Current Version ID: b1ae63fe-1e9d-4422-8b96-0ce922c449f5
+Current Version ID: 4ea861a3-6d43-4fda-82b2-9378befaf2f1
 == Setting the API keys
 
  ⛅️ wrangler 4.156.0
