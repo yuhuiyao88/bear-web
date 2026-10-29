@@ -1,7 +1,7 @@
 == Checking Gemini model gemini-flash-lite-latest
 {'name': 'models/gemini-flash-lite-latest', 'displayName': 'Gemini Flash-Lite Latest', 'version': 'Gemini Flash-Lite Latest', 'error': None}
-== Checking Gemini model gemini-2.5-flash-lite
-{'name': 'models/gemini-2.5-flash-lite', 'displayName': 'Gemini 2.5 Flash-Lite', 'version': '001', 'error': None}
+== Checking Gemini model gemini-3.1-flash-lite
+{'name': 'models/gemini-3.1-flash-lite', 'displayName': 'Gemini 3.1 Flash Lite', 'version': '3.1-flash-lite-05-2026', 'error': None}
 == Checking Gemini model gemini-flash-latest
 {'name': 'models/gemini-flash-latest', 'displayName': 'Gemini Flash Latest', 'version': 'Gemini Flash Latest', 'error': None}
 == Wrangler 4.156.0
@@ -16,7 +16,7 @@ Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more
 ✨ Read 7 files from the assets directory /home/runner/work/bear-web/bear-web/public
 🌀 Starting asset upload...
 No updated asset files to upload. Proceeding with deployment...
-Total Upload: 30.21 KiB / gzip: 10.67 KiB
+Total Upload: 30.27 KiB / gzip: 10.69 KiB
 Your Worker has access to the following bindings:
 Binding                           Resource             
 env.MODEL_USAGE (ModelUsage)      Durable Object       
@@ -24,10 +24,10 @@ env.VECTORIZE (bear-index)        Vectorize Index
 env.AI                            AI                   
 env.ASSETS                        Assets               
 
-Uploaded bear (4.37 sec)
-Deployed bear triggers (0.44 sec)
+Uploaded bear (3.78 sec)
+Deployed bear triggers (0.55 sec)
   https://bear.yaolab.workers.dev
-Current Version ID: 4ea861a3-6d43-4fda-82b2-9378befaf2f1
+Current Version ID: a24e4ade-a886-4ca2-b9f9-618535d756c5
 == Setting the API keys
 
  ⛅️ wrangler 4.156.0
