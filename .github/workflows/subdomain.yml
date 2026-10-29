@@ -1,0 +1,45 @@
+name: Change site address
+
+on:
+  push:
+    branches: [main]
+    paths: ["ops/subdomain.txt"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set the workers.dev subdomain from ops/subdomain.txt
+        run: |
+          set -o pipefail
+          {
+          NAME=$(tr -d '[:space:]' < ops/subdomain.txt)
+          API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain"
+          echo "Current: $(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API" | jq -c .result)"
+          echo "Requesting: $NAME"
+          curl -s -X PUT -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "content-type: application/json" \
+            "$API" -d "{\"subdomain\":\"$NAME\"}" | jq -c '{success, errors, result}'
+          echo "Now: $(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API" | jq -c .result)"
+          for i in $(seq 1 20); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://bear.$NAME.workers.dev/")
+            echo "check $i: https://bear.$NAME.workers.dev -> HTTP $code"
+            [ "$code" = "200" ] && break
+            sleep 15
+          done
+          } 2>&1 | tee ops/last-subdomain.log
+      - name: Save the log to the repo
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ops/last-subdomain.log
+          git commit -m "Subdomain log" || exit 0
+          git pull --rebase && git push

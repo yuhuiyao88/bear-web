@@ -1,0 +1,47 @@
+== Checking Gemini model gemini-flash-lite-latest
+{'name': 'models/gemini-flash-lite-latest', 'displayName': 'Gemini Flash-Lite Latest', 'version': 'Gemini Flash-Lite Latest', 'error': None}
+== Checking Gemini model gemini-2.5-flash-lite
+{'name': 'models/gemini-2.5-flash-lite', 'displayName': 'Gemini 2.5 Flash-Lite', 'version': '001', 'error': None}
+== Checking Gemini model gemini-flash-latest
+{'name': 'models/gemini-flash-latest', 'displayName': 'Gemini Flash Latest', 'version': 'Gemini Flash Latest', 'error': None}
+== Wrangler 4.156.0
+== Making sure the course index exists
+== Deploying the Worker and page
+
+ ⛅️ wrangler 4.156.0
+────────────────────
+
+Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+🌀 Building list of assets...
+✨ Read 7 files from the assets directory /home/runner/work/bear-web/bear-web/public
+🌀 Starting asset upload...
+🌀 Found 1 new or modified static asset to upload. Proceeding with upload...
++ /index.html
+Uploaded 1 of 1 asset
+✨ Success! Uploaded 1 file (6 already uploaded) (0.71 sec)
+
+Total Upload: 30.21 KiB / gzip: 10.67 KiB
+Your Worker has access to the following bindings:
+Binding                           Resource             
+env.MODEL_USAGE (ModelUsage)      Durable Object       
+env.VECTORIZE (bear-index)        Vectorize Index      
+env.AI                            AI                   
+env.ASSETS                        Assets               
+
+Uploaded bear (4.73 sec)
+Deployed bear triggers (0.57 sec)
+  https://bear.yaolab.workers.dev
+Current Version ID: b1ae63fe-1e9d-4422-8b96-0ce922c449f5
+== Setting the API keys
+
+ ⛅️ wrangler 4.156.0
+────────────────────
+🌀 Creating the secret for the Worker "bear"
+✨ Success! Uploaded secret GEMINI_API_KEY
+
+ ⛅️ wrangler 4.156.0
+────────────────────
+🌀 Creating the secret for the Worker "bear"
+✨ Success! Uploaded secret GROQ_API_KEY
+(MISTRAL_API_KEY not set; skipping)
+== BEAR is live at https://bear.yaolab.workers.dev

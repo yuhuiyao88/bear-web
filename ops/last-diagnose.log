@@ -1,0 +1,21 @@
+== 1. Model info for gemini-flash-lite-latest
+{'name': 'models/gemini-flash-lite-latest', 'displayName': 'Gemini Flash-Lite Latest', 'version': 'Gemini Flash-Lite Latest', 'error': None, 'thinking': True}
+== 2. Plain request (no tools)
+HTTP 200 in 8.016494s
+{"promptTokenCount": 12, "candidatesTokenCount": 32, "totalTokenCount": 44, "promptTokensDetails": [{"modality": "TEXT", "tokenCount": 12}], "serviceTier": "standard"}
+== 3. Request with code execution (plot)
+HTTP 200 in 5.729517s
+finish: STOP parts: ['executableCode', 'codeExecutionResult', 'inlineData', 'text']
+{"promptTokenCount": 17, "candidatesTokenCount": 420, "totalTokenCount": 1822, "promptTokensDetails": [{"modality": "TEXT", "tokenCount": 17}], "toolUsePromptTokenCount": 1385, "toolUsePromptTokensDetails": [{"modality": "TEXT", "tokenCount": 293}, {"modality": "IMAGE", "tokenCount": 1092}], "serviceTier": "standard"}
+== 4. Worker logs + a request through the site (https://bear.yaolab.workers.dev)
+HTTP 200 in 6.926117s
+{"text":"Both the t-test and Analysis of Variance (ANOVA) are used to compare means, but they are applied in different scenarios depending on the number of groups you are analyzing. \n\n*   A **t-test** is typically used when you want to compare the means of **two** groups (e.g., comparing a treatment group to a control group) (*Introductory Statistics for the Life and Biomedical Sciences, 5.4*; *OpenIntro Statistics, 7.5.1*).\n*   **ANOVA** is used when you want to compare the means of **three or more** groups simultaneously (e.g., comparing multiple genotypes or several medical treatments) (*Introductory Statistics for the Life and Biomedical Sciences, 5.5*; *OpenIntro Statistics, 7.5.1*).\n\nYou might wonder: *Why not just run multiple two-sample t-tests if we have more than two groups?
+-- model router status:
+{"models":[{"id":"gemini-flash-lite","model":"gemini-flash-lite-latest","limits":{"rpm":15,"rpd":1000},"lastMinute":{"requests":1,"tokens":4546},"today":{"requests":1,"tokens":4546},"headroom":0.87,"coolingDownFor":0,"cooldownReason":"","failuresInARow":0,"avgReplyMs":6009,"lastOk":"2026-10-29T19:31:07.822Z","lastError":""},{"id":"gemini-2.5-flash-lite","model":"gemini-2.5-flash-lite","limits":{"rpm":10,"rpd":500},"lastMinute":{"requests":0,"tokens":0},"today":{"requests":0,"tokens":0},"headroom":0.9,"coolingDownFor":0,"cooldownReason":"","failuresInARow":0,"avgReplyMs":null,"lastOk":null,"lastError":""},{"id":"gemini-flash","model":"gemini-flash-latest","limits":{"rpm":5,"rpd":20},"lastMinute":{"requests":0,"tokens":0},"today":{"requests":0,"tokens":0},"headroom":0.8,"coolingDownFor":0,"cooldownReason":"","failuresInARow":0,"avgReplyMs":null,"lastOk":null,"lastError":""},{"id":"groq-gpt-oss-120b","model":"openai/gpt-oss-120b","limits":{"rpm":30,"rpd":1000,"tpm":8000,"tpd":200000},"lastMinute":{"requests":0,"tokens":0},"today":{"requests":0,"tokens":0},"headroom":0.97,"coolingDownFor":0,"cooldownReason":"","failuresInARow":0,"avgReplyMs":null,"lastOk":null,"lastError":""},{"id":"groq-gpt-oss-20b","model":"openai/gpt-oss-20b","limits":{"rpm":30,"rpd":1000,"tpm":8000,"tpd":200000},"lastMinute":{"requests":0,"tokens":0},"today":{"requests":0,"tokens":0},"headroom":0.97,"coolingDownFor":0,"cooldownReason":"","failuresInARow":0,"avgReplyMs":null,"lastOk":null,"lastError":""},{"id":"workers-ai-llama-4-scout","model":"@cf/meta/llama-4-scout-17b-16e-instruct","limits":{"rpm":10,"rpd":20},"lastMinute":{"requests":0,"tokens":0},"today":{"requests":0,"tokens":0},"headroom":0.9,"coolingDownFor":0,"cooldownReason":"","failuresInARow":0,"avgReplyMs":null,"lastOk":null,"lastError":""}],"notConfigured":[]}
+-- worker log entries:
+outcome: ok | cpu/wall: 2 209
+outcome: ok | cpu/wall: 0 38
+outcome: ok | cpu/wall: 6 6757
+outcome: ok | cpu/wall: 1 26
+outcome: ok | cpu/wall: 1 176
+entries: 5

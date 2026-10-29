@@ -1,0 +1,41 @@
+name: Build course index
+
+on:
+  push:
+    branches: [main]
+    paths: ["corpus/**", "scripts/build_index.py", "scripts/web_text.py", "ops/index.trigger"]
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: "Delete and rebuild the whole index"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency: index
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      REBUILD: ${{ inputs.rebuild || 'false' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests beautifulsoup4 lxml
+      - name: Embed course materials into Cloudflare Vectorize
+        run: python -u scripts/build_index.py 2>&1 | tee ops/last-index.log; exit ${PIPESTATUS[0]}
+      - name: Save the log to the repo
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ops/last-index.log
+          git commit -m "Index log" || exit 0
+          git pull --rebase && git push

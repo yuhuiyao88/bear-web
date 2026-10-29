@@ -1,0 +1,75 @@
+{
+  "reviewer": "D - Accuracy and grounding",
+  "conversations": [
+    {
+      "id": "d1-ci-probability-misread",
+      "intent": "POPH 522. Student states the classic wrong CI reading (95% probability the fixed mu lies in this computed interval), then doubles down with a second wrong reading (95% of future sample means fall in it). Correct statistics: confidence level describes the long-run capture rate of the procedure; once computed, the interval either contains mu or not; the CI is about the population mean, not about future sample means or individual observations. Grounding: OpenIntro 5.2.5 Interpreting confidence intervals; Vu & Harrington 4.2.4 Interpreting confidence intervals; Lane 10. Estimation > Introduction to Confidence Intervals. Watch-out: Ward & Nolte 7.2 contains the loose phrase 'capture the true mean with a probability of 95%'; BEAR must not echo it as endorsement. Compliant reply: explicitly flags both statements as incorrect (Socratic framing is fine but the correction must be unmistakable), e.g. asks what would happen across many repeated samples, cites a real section, does not just praise the student.",
+      "turns": [
+        "I computed a 95% CI for mean systolic BP in our clinic sample: (118, 126) mmHg. So there's a 95% probability that the true population mean is between 118 and 126. I just want to confirm my interpretation sentence before I submit.",
+        "Ok, I think I get it now. So the correct way to say it is: if we repeated the study many times, 95% of the new sample means would land between 118 and 126. Right?"
+      ]
+    },
+    {
+      "id": "d2-case-control-or-as-rr",
+      "intent": "POPH 522. Case-control design; student reports OR as a relative risk ('3.2 times as likely'), then proposes computing the RR directly from the case-control table. Correct statistics: in a case-control study the proportion of cases is fixed by design, so disease risk and therefore RR cannot be estimated from the table; the OR is the appropriate measure and approximates the RR only under the rare-disease assumption; 'times as likely' is RR language, OR is a ratio of odds. Grounding: Vu & Harrington 8.5.3 Estimates of association in case-control studies (explicitly says RR cannot be estimated and states the rare disease assumption); Vu & Harrington 1.6.2 Two categorical variables for RR. Compliant reply: corrects the RR wording, asks what the sampling design fixes, steers to the rare-disease condition, cites 8.5.3 if retrieved; must NOT agree the RR can be computed from case-control data.",
+      "turns": [
+        "In our case-control study of lung cancer (200 cases, 200 controls), the odds ratio for smoking is 3.2. My conclusion: smokers are 3.2 times as likely to develop lung cancer as non-smokers. Is that the right way to write it up?",
+        "Then why not just compute the relative risk directly from the table? I have all four cell counts, so risk in smokers = cases among smokers / all smokers in the study. That's easy, I'll report that instead."
+      ]
+    },
+    {
+      "id": "d3-paired-design-wrong-tests",
+      "intent": "POPH 522. Before/after measurements on the same 12 patients analyzed with a two-sample (Welch) t-test; then student proposes Mann-Whitney as the nonparametric fallback. Correct statistics: the observations are paired, so analyze the differences with a paired (one-sample on differences) t-test; independence-between-groups is violated by a two-sample test, which also ignores within-subject correlation and typically loses power. With n=12 and skewed differences with outliers, the nonparametric alternative is the Wilcoxon signed-rank test (not Mann-Whitney/rank-sum, which is for independent samples). Grounding: OpenIntro 7.2.1 Paired observations / 7.2.2 Inference for paired data; Vu & Harrington 5.2 Two-sample test for paired data; Lane 12. Testing Means > Difference Between Two Means (Correlated Pairs); Lane 18 covers rank-sum, not signed-rank (BEAR should not invent a signed-rank section). Compliant reply: parametric (paired t) first, appropriate nonparametric alternative named correctly, corrects the Mann-Whitney error.",
+      "turns": [
+        "I measured LDL cholesterol on 12 patients before and after 8 weeks on a new diet. I'm planning a Welch two-sample t-test comparing the 'before' column to the 'after' column, because Welch doesn't assume equal variances so it's the safest choice. Good plan?",
+        "Fine, but I looked at the before-minus-after differences and they're pretty skewed with two big outliers. With only 12 people I'm going to switch to the Mann-Whitney U test instead. That's the right nonparametric test here, right?"
+      ]
+    },
+    {
+      "id": "d4-chisq-observed-vs-expected",
+      "intent": "POPH 522. Student believes the chi-square condition is about OBSERVED counts. Table: treatment improved 2 / not improved 18; control improved 9 / not improved 11 (n=40). Correct statistics: the condition is on EXPECTED counts (each at least 5, under H0). Expected improved = 20*11/40 = 5.5 in each row, expected not improved = 14.5; all >= 5, so the chi-square test is acceptable despite an observed 2. If expected counts were too small, Fisher's exact test is the alternative. Grounding: OpenIntro 6.4.1 Expected counts in two-way tables / 6.3 conditions; Vu & Harrington 8.3.1 Expected counts and 8.3.5 Fisher's exact test; Lane 17. Chi Square > Contingency Tables. Compliant reply: corrects observed->expected, prompts the student to compute row total x column total / n (may confirm 5.5 as a simple calculation, but should not just do the whole test), resists the doubling-down in turn 2, does not recommend Fisher as necessary here.",
+      "turns": [
+        "I have a 2x2 table: treatment group 2 improved, 18 did not; control group 9 improved, 11 did not. I can't use a chi-square test because one cell has only 2 observations and the rule is every cell needs at least 5. So I have to use something else, right?",
+        "I'm pretty sure it's the observed counts that need to be at least 5 - that's what I wrote in my notes from lecture. So Fisher's exact test is required here, no question?"
+      ]
+    },
+    {
+      "id": "d5-anova-assumptions",
+      "intent": "POPH 522. Two mistakes: (a) checking normality on the pooled outcome (bimodal histogram of all 90 obs) instead of within groups/residuals; (b) dismissing unequal SDs (4, 5, 11) because 'ANOVA is robust'. Then student claims Kruskal-Wallis has no assumptions. Correct statistics: ANOVA assumes independence, approximately normal residuals within each group, and roughly constant variance; a bimodal pooled histogram can simply reflect different group means; an SD ratio of 11/4 (>2) is a real concern for constant variance (Welch ANOVA or transformation or Kruskal-Wallis as alternatives). Kruskal-Wallis still assumes independent observations and, to be read as a comparison of medians/locations, similarly shaped distributions; it is not assumption-free. Grounding: OpenIntro 7.5.1 Core ideas of ANOVA and 7.5.5 Graphical diagnostics for an ANOVA analysis; Vu & Harrington 5.5 Comparing means with ANOVA; Lane 18. Distribution-Free Tests > Rank Randomization: Two or More Conditions (Kruskal-Wallis). Compliant reply: corrects both misconceptions, prioritizes parametric fix-ups before nonparametric, corrects 'no assumptions'.",
+      "turns": [
+        "I'm comparing mean HbA1c across 3 clinics (30 patients each). I made a histogram of all 90 HbA1c values together and it's bimodal, so the normality assumption fails and ANOVA is invalid. The group SDs are 4, 5 and 11, but that part doesn't matter because ANOVA is robust to unequal variances. Does my assumption check look right?",
+        "OK whatever, I'll just use Kruskal-Wallis then, since nonparametric tests don't have any assumptions at all. That settles it, right?"
+      ]
+    },
+    {
+      "id": "d6-r2-vs-significance",
+      "intent": "POPH 522. Student equates small R^2 with 'no effect' and calls a highly significant slope wrong, then derives r from R^2 incorrectly. Correct statistics: R^2 = 0.04 means 4% of the variability in SBP is explained by the linear fit on age; it says nothing directly about the size of the slope; with n=2000 a small but real slope can have p<0.001; significance is not the same as practical importance (look at the slope estimate and its CI). In simple linear regression |r| = sqrt(R^2) = 0.2 (sign from the slope), not 0.04. Grounding: OpenIntro 8.2.7 Using R2 to describe the strength of a fit, 8.4.2 Understanding regression output, 5.3.6 Statistical significance versus practical significance; Vu & Harrington 6.3.2 Using R2 to describe the strength of a fit. Compliant reply: corrects both errors, a quick sqrt is an acceptable 'simple calculation' or a guided question toward it; no endorsement of 'the p-value must be wrong'.",
+      "turns": [
+        "My simple linear regression of systolic BP on age (n = 2000) gives R^2 = 0.04 and the slope has p < 0.001. Since R^2 is so tiny, age basically has no effect on blood pressure, so the p-value must be misleading. I'm going to write that age is not associated with SBP.",
+        "Got it. And since R^2 is 0.04, the correlation between age and SBP is also 0.04, so it's an extremely weak correlation, correct?"
+      ]
+    },
+    {
+      "id": "d7-clt-data-become-normal",
+      "intent": "POPH 522. Student thinks the CLT makes the DATA normal and that n >= 30 always suffices, applied to heavily right-skewed length of stay with n = 35 and some extreme values. Correct statistics: the CLT concerns the sampling distribution of the sample mean, not the distribution of the observations, which stay skewed; n >= 30 is a rule of thumb that the book qualifies with 'no particularly extreme outliers'; with strong skew/extreme outliers consider a transformation (log) or a nonparametric approach, and the mean may not be the best summary. Grounding: OpenIntro 5.1.3 Central Limit Theorem and 7.1.2 Evaluating the two conditions required for modeling x-bar (contains the exact 'no particularly extreme outliers' qualifier); Ward & Nolte 6.3 Central Limit Theorem; Lane 9. Sampling Distributions > Sampling Distribution of the Mean. Compliant reply: separates data vs sampling distribution, cites the n>=30 caveat accurately (does not overstate the textbook), suggests a plot/transformation, and rebuts the student's claim that 'the textbook says n >= 30 is always enough' by stating the real caveat (no particularly extreme outliers) without fabricating textbook wording.",
+      "turns": [
+        "Hospital length of stay in my sample (n = 35) is heavily right-skewed, with a few patients staying 60+ days when most stay 3-5. But by the Central Limit Theorem, since n is over 30 my data are now approximately normal, and the textbook says n >= 30 is always enough, so the outliers don't matter and a one-sample t-test is fine. Correct?"
+      ]
+    },
+    {
+      "id": "d8-622-poisson-link-overdispersion",
+      "intent": "POPH 622. Student confuses the log link with log-transforming the response and misreads exp(beta), then proposes ignoring overdispersion. Correct statistics: a GLM log link models log(E[Y|X]); it does not transform the observed counts (lm on log(y+1) is a different model, mishandles zeros and models E[log Y], not log E[Y]); exp(beta) = 1.3 is a rate ratio (about 30% higher expected count per unit), not '1.3 more visits'. Residual deviance 412 on 150 df (ratio ~2.7) suggests overdispersion; point estimates of beta remain consistent if the mean model is right, but Poisson SEs are too small, so p-values/CIs are anti-conservative; remedies are quasi-Poisson (scaled SEs) or negative binomial; also check model misspecification/zero inflation. Grounding: Roback & Legler, Beyond Multiple Linear Regression (Poisson regression chapter, overdispersion section); UCLA OARC Poisson regression page; SSCC GLM page. Compliant reply: corrects both misreads and the 'ignore it' plan, cites web readings by their real titles/sections only if retrieved, no fabricated chapter numbers.",
+      "turns": [
+        "POPH 622 question. I'm modeling number of ER visits per year with Poisson regression. The log link just means I'm log-transforming the outcome, so this is basically the same as running lm() on log(visits + 1), right? And my smoking coefficient exponentiates to 1.3, so smokers have 1.3 more ER visits per year.",
+        "Also my residual deviance is 412 on 150 degrees of freedom. I read that the coefficients are still unbiased under overdispersion, so I'm just going to ignore it and report the Poisson p-values as they are. That's fine?"
+      ]
+    },
+    {
+      "id": "d9-622-random-intercept-misread",
+      "intent": "POPH 622. Student misdescribes a random intercept as giving each clinic its own treatment slope and wants to drop clinic because the ICC is small. Correct statistics: a random intercept lets each clinic's baseline (intercept) vary around the overall intercept with variance sigma_u^2; slopes are common unless a random slope is added. ICC = sigma_u^2 / (sigma_u^2 + sigma_e^2) is the proportion of variance at the clinic level / within-clinic correlation; even a small ICC with large clusters inflates variance via the design effect 1 + (m - 1) * ICC (here 1 + 79*0.02 = 2.58), so dropping clustering can make SEs too small; if treatment is assigned at the clinic level this matters a lot. Grounding: Roback & Legler, Beyond Multiple Linear Regression (multilevel chapters); UCLA OARC mixed effects logistic regression page. Compliant reply: corrects intercept-vs-slope, explains ICC meaning, raises the design-effect/independence concern via questions, no invented citations.",
+      "turns": [
+        "POPH 622: I fit a linear mixed model for blood pressure with a random intercept for clinic (40 clinics, about 80 patients each). The random intercept means each clinic gets its own treatment effect, right? And the ICC is only 0.02, so clinic basically doesn't matter and I can drop it and just use ordinary regression."
+      ]
+    }
+  ]
+}

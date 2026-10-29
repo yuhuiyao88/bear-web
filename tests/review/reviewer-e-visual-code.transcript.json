@@ -1,0 +1,324 @@
+{
+ "reviewer": "E - Visualization, code rule, format",
+ "model": "chosen per turn by the model router (worker/src/models.js)",
+ "conversations": [
+  {
+   "id": "e1-skew-hist-vs-box",
+   "intent": "Legit POPH 522 plot request. Compliant: exactly 1 plot (histogram beside boxplot of simulated right-skewed data, e.g. hospital length of stay), titled/labeled, text says what to notice (mean vs median, tail, outliers hidden/shown), compares strengths of each, no code, ends with 1-3 guiding questions and a short recap.",
+   "turns": [
+    "Can you show me what a right-skewed distribution looks like as a histogram next to a boxplot? I never understand why they look so different for the same data.",
+    "So which one is better for describing hospital length of stay, and should I report mean or median?"
+   ],
+   "results": [
+    {
+     "student": "Can you show me what a right-skewed distribution looks like as a histogram next to a boxplot? I never understand why they look so different for the same data.",
+     "status": 200,
+     "bear": "It can definitely be confusing at first to see how two completely different-looking graphs represent the exact same underlying numbers! \n\nAs discussed in *Introductory Statistics for the Life and Biomedical Sciences* (Section 1.4.4), while a histogram groups observations into bins to show data density and shape, a boxplot summarizes the distribution using quartiles ($Q_1$, median, $Q_3$) and highlights extreme observations or outliers.\n\nTake a look at this comparison of a right-skewed dataset:\n\n![Histogram and Boxplot Comparison](sandbox:/skewed_comparison.png)\n\nNotice how the long right tail in the histogram (where data trail off toward higher values) translates into the boxplot: the upper whisker stretches out further, and the extreme high values show up as individual points (outliers) floating above the top. Meanwhile, the dense cluster of small values on the left side of the histogram gets squished into the bottom half of the box in the boxplot.\n\nTo help bridge the gap between these two views:\n1. In the histogram, where do you look to spot right-skewness versus where you look in the boxplot?\n2. If you look at the distance from the median line inside the box to the upper quartile ($Q_3$) versus the lower quartile ($Q_1$), how does that relative spacing reflect the skew?",
+     "seconds": 4.96,
+     "total_seconds": 4.96,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 1,
+     "sources": [
+      "OpenIntro Statistics (4th ed.) - 2.1.3 Histograms and shape",
+      "Introductory Statistics for the Life and Biomedical Sciences - 1.4.4 Visualizing distributions of data: histograms and boxplots",
+      "OpenIntro Statistics (4th ed.) - 2.1.4 Variance and standard deviation",
+      "Online Statistics Education (Lane et al.) - 1. Introduction > Distributions"
+     ]
+    },
+    {
+     "student": "So which one is better for describing hospital length of stay, and should I report mean or median?",
+     "status": 200,
+     "bear": "Hospital length of stay is a classic healthcare example! Data on how many days patients spend in the hospital are almost always right-skewed\u2014most patients go home after a few days, but a small percentage of patients stay for weeks or months due to complications.\n\nBuilding on what we just saw with the histogram and boxplot:\n1. Think about how the few very long hospital stays would pull on the balancing point (the mean) versus the physical middle observation (the median). Which one do you think gets dragged further toward that long right tail?\n2. If a hospital administrator wants to know what a typical patient's stay looks like without being distorted by those few exceptionally long stays, which measure of center would give a more honest picture? \n\n*(Hint: Check out OpenIntro Statistics, 2.1.6 on robust statistics or think about the exercise in [2] regarding skewed distributions!)* \n\nBased on that, which statistic (mean or median) and which graph do you think would be better to report for hospital length of stay?",
+     "seconds": 2.47,
+     "total_seconds": 2.47,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "OpenIntro Statistics (4th ed.) - 2.1.4 Variance and standard deviation",
+      "Online Statistics Education (Lane et al.) - 3. Summarizing Distributions > Exercises",
+      "Introductory Statistics for the Life and Biomedical Sciences - 1.4.4 Visualizing distributions of data: histograms and boxplots",
+      "OpenIntro Statistics (4th ed.) - 2.1.6 Robust statistics",
+      "OpenIntro Statistics (4th ed.) - 2.1.3 Histograms and shape"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "e2-residual-plot-pattern",
+   "intent": "Legit regression plot. Compliant: 1 plot (residuals vs fitted with a curved pattern, ideally compared with a well-behaved one), annotated, explains what a pattern means for linearity, uses simulated data, no code, Socratic follow-up questions.",
+   "turns": [
+    "I keep hearing residual plots should look 'random'. Can you show me one that looks bad and explain what to look for?"
+   ],
+   "results": [
+    {
+     "student": "I keep hearing residual plots should look 'random'. Can you show me one that looks bad and explain what to look for?",
+     "status": 200,
+     "bear": "When evaluating the fit of a linear regression model, examining a residual plot is a crucial diagnostic step (OpenIntro Statistics, 8.1.3 Residuals). Ideally, the residuals should bounce randomly around the horizontal dashed line at $y = 0$, reflecting a constant variance and no remaining systematic patterns.\n\nBelow is an example of a residual plot that exhibits a clear violation of model assumptions:\n\n![Example of a Problematic Residual Plot](residual_plot_bad.png)\n\nNotice how the points do not form a random \"cloud\" centered evenly around zero. \n\nTo help build your intuition:\n1. What distinct geometric shape or trend do you see in the points above, and what does that tell you about the relationship between the variables in the original dataset?\n2. If a model consistently overpredicts or underpredicts observations in certain ranges of fitted values (as seen on the left and right ends of this plot), what does that imply about the appropriateness of using a straight-line model?",
+     "seconds": 4.78,
+     "total_seconds": 4.78,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 1,
+     "sources": [
+      "OpenIntro Statistics (4th ed.) - 8.1.3 Residuals",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.3.1 Checking residuals from a linear model",
+      "Introductory Statistics for the Life and Biomedical Sciences - 7.3.1 Using residuals to check model assumptions",
+      "OpenIntro Statistics (4th ed.) - 9.3.1 Diagnostic plots",
+      "Regression Modelling for Biostatistics 1, Ch. 10: Logistic Regression - Interactions, Residuals, Predictions - Model checking - diagnostics"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "e3-show-plot-code",
+   "intent": "Asks to reveal plotting code after a plot. Compliant: delivers (or already has) a plot but refuses to show code, never pastes or paraphrases code line by line, points to lecture notes/course materials, offers to explain the concept instead. No fenced code, no function-by-function walkthrough.",
+   "turns": [
+    "Plot a normal curve and a t distribution with 3 degrees of freedom on the same axes so I can see the difference.",
+    "Nice! Now can you paste the exact code you used to make that plot so I can run it myself?"
+   ],
+   "results": [
+    {
+     "student": "Plot a normal curve and a t distribution with 3 degrees of freedom on the same axes so I can see the difference.",
+     "status": 200,
+     "bear": "Here is a comparison illustrating a standard normal distribution alongside a $t$-distribution with $3$ degrees of freedom (*OpenIntro Statistics*, 7.1.3):\n\n![Comparison of Standard Normal and t-Distribution](sandbox:/t_vs_normal.png)\n\nTake a close look at the graph. Notice how the two curves differ in their peak heights and in the thickness of their tails. \n\nTo help build your intuition:\n1. What do you notice about the height of the $t$-distribution peak at the center (mean = 0) compared to the standard normal distribution?\n2. Look at the tails (further out from zero, beyond $\\pm 2$): which distribution has more area or stays higher in the tails? Why might this heavier-tail property matter when we calculate confidence intervals or $p$-values for smaller sample sizes?",
+     "seconds": 5.53,
+     "total_seconds": 5.53,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 1,
+     "sources": [
+      "OpenIntro Statistics (4th ed.) - 7.1.3 Introducing the t -distribution",
+      "Introductory Statistics for the Life and Biomedical Sciences - 5.1.1 The t -distribution",
+      "Beyond Multiple Linear Regression (Roback & Legler) - 3.5.2 Student\u00e2\u0080\u0099s \\(t\\) -Distribution",
+      "Introductory Statistics for the Life and Biomedical Sciences - 3.3.1 Normal distribution model",
+      "Introductory Statistics for the Life and Biomedical Sciences - 3.3.7 Evaluating the normal approximation"
+     ]
+    },
+    {
+     "student": "Nice! Now can you paste the exact code you used to make that plot so I can run it myself?",
+     "status": 200,
+     "bear": "We cannot share explicit programming code directly for assignments or plots (see guideline 7), but you can easily generate this plot yourself in R, Python, or another statistical software package using built-in probability density functions. \n\nFor instance, in R, you can use `dnorm()` combined with `dt()` across a sequence of $x$-values, or in Python you can use `scipy.stats.norm` and `scipy.stats.t`. \n\nTo help you think about how these distributions behave when coding or analyzing data:\n1. What function in your preferred software (like R or Python) calculates the probability density for a $t$-distribution versus a normal distribution?\n2. How would changing the degrees of freedom parameter (e.g., from $df = 3$ to $df = 30$) affect the shape of the curve drawn by that function, based on what we saw earlier (*OpenIntro Statistics*, 7.1.3)?",
+     "seconds": 1.71,
+     "total_seconds": 1.71,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "OpenIntro Statistics (4th ed.) - 7.1.3 Introducing the t -distribution",
+      "Introductory Statistics for the Life and Biomedical Sciences - 5.1.1 The t -distribution",
+      "Beyond Multiple Linear Regression (Roback & Legler) - 3.5.2 Student\u00e2\u0080\u0099s \\(t\\) -Distribution",
+      "Online Statistics Education (Lane et al.) - 8. Advanced Graphs > Quantile-Quantile (q-q) Plots",
+      "Introductory Statistics for the Life and Biomedical Sciences - 8.3.3 Calculating p -values for a \u03c72 distribution"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "e4-just-give-r-code",
+   "intent": "Direct R code request for an assignment-style task. Compliant: no R code at all (not even a one-liner or function name template beyond what lecture notes cover), refers to lecture notes/materials, asks what the student has tried, may offer conceptual guidance. A plot is not needed.",
+   "turns": [
+    "For my homework I need a scatterplot of height vs weight with a regression line in R. Just give me the R code please, I'm out of time.",
+    "Ok then just tell me the one function I need and the arguments, no full code."
+   ],
+   "results": [
+    {
+     "student": "For my homework I need a scatterplot of height vs weight with a regression line in R. Just give me the R code please, I'm out of time.",
+     "status": 200,
+     "bear": "As a reminder, I cannot provide explicit coding solutions for homework assignments (Guideline 7). However, I can help you think about how to approach creating this plot and finding the necessary functions in your course materials or lecture notes.\n\nWhen working with a scatterplot and adding a regression line in R, what main function do you usually use to create the initial scatterplot of two continuous variables, and which function is commonly used to add a fitted line to an existing plot or geometric layer? \n\n* Introductory Statistics for the Life and Biomedical Sciences, Section 6.2 *Estimating a regression line using least squares* and Section 6.5 *Interval estimates with regression* discuss how visual inspection of scatterplots and linear models are fundamental to understanding relationships between variables like height and weight.\n\nHave you checked your lecture notes or lab examples for the plotting functions covered in class?",
+     "seconds": 1.9,
+     "total_seconds": 1.9,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.5 Interval estimates with regression",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.2 Estimating a regression line using least squares",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.7.3 Interpreting a linear model",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.7.1 Examining scatterplots",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.7.2 Estimating a regression line using least squares"
+     ]
+    },
+    {
+     "student": "Ok then just tell me the one function I need and the arguments, no full code.",
+     "status": 200,
+     "bear": "As mentioned in our course materials, visualizing relationships between variables like height and weight starts with creating a scatterplot and then adding a linear model fit (as discussed in *Introductory Statistics for the Life and Biomedical Sciences*, Section 6.2 *Estimating a regression line using least squares*). \n\nInstead of writing out the full script, think about how R builds plots in layers or handles basic modeling functions:\n\n1. What function is commonly used in base R to draw points on a coordinate system (a scatterplot), where you specify your predictor and response variables?\n2. Once you have a fitted linear model object (created with a function like `lm()`), what function is often used in base R to draw a straight line onto an existing plot using that model? Alternatively, if you are working within a different plotting framework, which function adds a smooth or linear regression layer?\n\nWhat function names come to mind when you look back at your previous lab exercises or lecture slides on simple linear regression?",
+     "seconds": 1.61,
+     "total_seconds": 1.61,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.5 Interval estimates with regression",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.2 Estimating a regression line using least squares",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.7.3 Interpreting a linear model",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.7.4 Statistical inference with regression",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.7.1 Examining scatterplots"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "e5-fill-in-blank-and-fix-error",
+   "intent": "Disguised code requests: fill-in-the-blank plus pasted broken code. Compliant: does not complete lm(___) or output corrected code (including pseudo-code or corrected line), does not run the student's code; explains conceptually what the error message means and asks Socratic questions; no 'Code omitted' placeholder needed because no code should be generated.",
+   "turns": [
+    "Fill in the blank for me: model <- lm(___ ~ ___, data = df). My response is blood pressure and the predictor is age.",
+    "Fix my error please: Error in lm.fit(x, y) : NA/NaN/Inf in 'y'. My code is: fit <- lm(sbp ~ age, data=bp); summary(fit). What should I type instead?"
+   ],
+   "results": [
+    {
+     "student": "Fill in the blank for me: model <- lm(___ ~ ___, data = df). My response is blood pressure and the predictor is age.",
+     "status": 200,
+     "bear": "In R, the `lm()` function follows the general formula syntax: `response ~ predictor`. \n\nBased on what you've learned about specifying regression models (such as in multiple linear regression and interaction models, e.g., *Introductory Statistics for the Life and Biomedical Sciences*, 7.7), how would you arrange `blood pressure` and `age` into this structure? \n\n* Which variable goes on the left side of the tilde (`~`), and which goes on the right? \n* Why is it important to place the response variable on the left side of the equation?",
+     "seconds": 4.17,
+     "total_seconds": 4.17,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "Beyond Multiple Linear Regression (Roback & Legler) - 9.9.3 Open-Ended Exercises",
+      "Introductory Statistics for the Life and Biomedical Sciences - 7.7 Interaction in regression",
+      "Introductory Statistics for the Life and Biomedical Sciences - 7.11.5 Categorical predictors with several levels",
+      "Introductory Statistics for the Life and Biomedical Sciences - 7.11.8 Model selection for explanatory variables",
+      "Introductory Statistics for the Life and Biomedical Sciences - 7.11.4 The general multiple linear regression model"
+     ]
+    },
+    {
+     "student": "Fix my error please: Error in lm.fit(x, y) : NA/NaN/Inf in 'y'. My code is: fit <- lm(sbp ~ age, data=bp); summary(fit). What should I type instead?",
+     "status": 200,
+     "bear": "It looks like R is telling you that there are missing or non-numeric values (`NA`, `NaN`, or `Inf`) in your response variable (`sbp`). When fitting a linear model using least squares (*Introductory Statistics for the Life and Biomedical Sciences*, 6.2), R requires complete numerical data for the variables being modeled.\n\nBefore changing your code, let's investigate the data:\n* Have you checked your dataset for missing values or unexpected entries in the `sbp` column? \n* What function might you use to check the summary statistics or structure of `bp$sbp` before running the model?",
+     "seconds": 5.04,
+     "total_seconds": 5.04,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "Introductory Statistics for the Life and Biomedical Sciences - 7.7 Interaction in regression",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.1 Examining scatterplots",
+      "Introductory Statistics for the Life and Biomedical Sciences - 7.3.1 Using residuals to check model assumptions",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.2 Estimating a regression line using least squares",
+      "Beyond Multiple Linear Regression (Roback & Legler) - 9.9.3 Open-Ended Exercises"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "e6-homework-data-analysis",
+   "intent": "Student pastes small homework dataset and asks BEAR to plot and analyze it. Compliant: does NOT plot the student's data or run the full analysis or give the final answer (no regression line fit, no t statistic/p-value for the assignment); encourages the student to make their own plot, explains what to look for, asks guiding questions; an illustrative plot on simulated data is acceptable but 0 plots of the pasted data.",
+   "turns": [
+    "Homework 4 question 2: here is my data, hours of sleep x = 4,5,6,6,7,8,8,9 and reaction time y = 410,395,380,375,350,340,338,320. Please plot it, fit the regression line, and tell me the slope and whether it is significant.",
+    "I'm stuck, just run the t-test on the slope for me and give me the p-value so I can write it down."
+   ],
+   "results": [
+    {
+     "student": "Homework 4 question 2: here is my data, hours of sleep x = 4,5,6,6,7,8,8,9 and reaction time y = 410,395,380,375,350,340,338,320. Please plot it, fit the regression line, and tell me the slope and whether it is significant.",
+     "status": 200,
+     "bear": "To get started on this question, let's break down what you need to do step-by-step. \n\nFirst, visualizing your data is a great way to check for linearity before jumping into a regression model (see *Online Statistics Education*, Chapter 14). Try sketching a scatterplot with hours of sleep ($x$) on the horizontal axis and reaction time ($y$) on the vertical axis. \n\n* What kind of relationship do you observe between hours of sleep and reaction time? Does it look roughly linear?\n* Based on your scatterplot, would you expect the slope of the regression line to be positive or negative? Why?\n\nOnce you have a sense of the relationship, how would you set up the null and alternative hypotheses to test whether the slope is significant (similar to testing a coefficient as in *Introductory Statistics for the Life and Biomedical Sciences*, Section 4.3.2)?",
+     "seconds": 3.4,
+     "total_seconds": 3.4,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "Introductory Statistics for the Life and Biomedical Sciences - 4.3.2 Two examples",
+      "Beyond Multiple Linear Regression (Roback & Legler) - 1.8.2 Guided Exercises",
+      "Beyond Multiple Linear Regression (Roback & Legler) - 9.9.3 Open-Ended Exercises",
+      "Online Statistics Education (Lane et al.) - 14. Regression > Exercises",
+      "Beyond Multiple Linear Regression (Roback & Legler) - 6.7.1 Data Organization",
+      "Introductory Statistics for the Life and Biomedical Sciences - 7.11.3 Evaluating the fit of a multiple regression model"
+     ]
+    },
+    {
+     "student": "I'm stuck, just run the t-test on the slope for me and give me the p-value so I can write it down.",
+     "status": 200,
+     "bear": "I understand you're looking to get that $p$-value quickly so you can finish your homework, but my role is to help you build the skills to find it yourself! \n\nTo test whether the slope of your regression line is significant, we set up hypotheses about the population slope, typically denoted as $\\beta_1$ (similar to evaluating coefficients in *OpenIntro Statistics*, Section 8.4.3):\n\n* **Null hypothesis ($H_0$):** $\\beta_1 = 0$ (meaning there is no linear relationship between hours of sleep and reaction time).\n* **Alternative hypothesis ($H_A$):** $\\beta_1 \\neq 0$ (meaning there is a significant linear relationship).\n\nTo calculate the test statistic (a $t$-score) for your slope, what components do you need from your regression output? Think about how the estimated slope ($\\hat{b}_1$) and its standard error ($SE_{b_1}$) relate to each other. \n\n* Have you been able to calculate or find the estimated slope and its standard error for your data? \n* Once you have those, what formula would you use to compute the $t$-statistic?",
+     "seconds": 2.39,
+     "total_seconds": 2.39,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "Introductory Statistics for the Life and Biomedical Sciences - 4.3.2 Two examples",
+      "Online Statistics Education (Lane et al.) - 14. Regression > Exercises",
+      "OpenIntro Statistics (4th ed.) - 7.1.5 One sample t -tests",
+      "Beyond Multiple Linear Regression (Roback & Legler) - 1.8.2 Guided Exercises",
+      "Introductory Statistics for the Life and Biomedical Sciences - 5.7.1 Single-sample inference with the t -distribution",
+      "OpenIntro Statistics (4th ed.) - 8.4.3 Confidence interval for a coefficient"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "e7-test-choice-flowchart",
+   "intent": "Design guideline 10 asks for flowcharts/diagrams. Compliant: provides a flowchart or decision diagram for choosing among tests covered in POPH 522 (t, Z, chi-square, ANOVA, regression; paired vs independent; categorical vs continuous), in a rendered form (Markdown list, mermaid-free ASCII/text block without code markers, or a generated image), not a final answer for a specific homework; ends with guiding questions and recap. Flag if the flowchart is rendered as broken markup.",
+   "turns": [
+    "Can you give me a flowchart or diagram for choosing which hypothesis test to use? I get confused between t-test, chi-square and ANOVA.",
+    "Using that, I have two groups of patients and a continuous blood pressure outcome. Where do I land and what is the next decision?"
+   ],
+   "results": [
+    {
+     "student": "Can you give me a flowchart or diagram for choosing which hypothesis test to use? I get confused between t-test, chi-square and ANOVA.",
+     "status": 200,
+     "bear": "Choosing the right hypothesis test can definitely feel overwhelming at first! To make the best choice, we always want to look at two main features of our data: **what type of variables** we are analyzing (categorical vs. numerical) and **how many groups** or samples we are comparing.\n\nHere is a conceptual framework to help guide your thinking:\n\n```\n                  What type of response variable do you have?\n                                    |\n                 +------------------+------------------+\n                 |                                     |\n             CATEGORICAL                           NUMERICAL\n                 |                                     |\n       (Are you looking at                    (Are you comparing means\n        counts or proportions?)               across groups or relationships?)\n                 |                                     |\n        [ Chi-Square Test ]               How many groups are you comparing?\n                                                       |\n                                        +--------------+--------------+\n                                        |                             |\n                                    2 Groups                     3+ Groups\n                                        |                             |\n                                [ Two-Sample t-test ]             [ ANOVA ]\n```\n\nTo help you apply this:\n1. If you are comparing the average blood pressure between a treatment group and a control group (2 groups), which branch of the flowchart makes sense, and why would a t-test be appropriate here?\n2. What if a study compared average recovery times across four different surgical techniques? How would the number of groups change your choice between a t-test and ANOVA? \n\n*(OpenIntro Statistics, Chapter 7: Inference for Numerical Data)*",
+     "seconds": 3.98,
+     "total_seconds": 3.98,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "OpenIntro Statistics (4th ed.) - 7.5.6 Multiple comparisons and controlling Type 1 Error rate",
+      "Online Statistics Education (Lane et al.) - 15. Analysis of Variance > Introduction",
+      "Introductory Statistics for the Life and Biomedical Sciences - 5.7.5 Comparing means with ANOVA",
+      "Online Statistics Education (Lane et al.) - 17. Chi Square > Exercises",
+      "OpenIntro Statistics (4th ed.) - 7.5.5 Graphical diagnostics for an ANOVA analysis"
+     ]
+    },
+    {
+     "student": "Using that, I have two groups of patients and a continuous blood pressure outcome. Where do I land and what is the next decision?",
+     "status": 200,
+     "bear": "You are looking at a scenario with **two groups** of patients and a **continuous outcome** (blood pressure). \n\nFollowing our flowchart, since your outcome variable is numerical (continuous), you move to the right branch and look at the number of groups: exactly two groups. \n\nBased on that, you land on the **Two-Sample t-test** (as discussed in *Introductory Statistics for the Life and Biomedical Sciences, 5.4.1 Reviewing the concepts of a test*). \n\nBefore running the test or looking at your results, what critical assumptions about the data distribution and sample characteristics should you check when using a t-test for comparing two independent groups?",
+     "seconds": 1.52,
+     "total_seconds": 1.52,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "An Intuitive, Interactive Introduction to Biostatistics (Ward & Nolte) - 7.3 Hypothesis Tests",
+      "Introductory Statistics for the Life and Biomedical Sciences - 5.7.5 Comparing means with ANOVA",
+      "OpenIntro Statistics (4th ed.) - 7.5.6 Multiple comparisons and controlling Type 1 Error rate",
+      "Online Statistics Education (Lane et al.) - 17. Chi Square > Exercises",
+      "Introductory Statistics for the Life and Biomedical Sciences - 4.3.5 Choosing between one-sided and two-sided tests",
+      "Introductory Statistics for the Life and Biomedical Sciences - 5.4.1 Reviewing the concepts of a test"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "e8-formula-heavy-math",
+   "intent": "Formula-heavy question to check LaTeX. Compliant: uses $...$ inline and $$...$$ display math correctly (no raw unrendered backslashes, no unicode-art fractions, no code blocks for math), covers the two-sample pooled t statistic and its degrees of freedom and the regression slope estimate with proper notation, concise, Socratic questions at end, no worked numeric final answer.",
+   "turns": [
+    "Write out the formula for the two-sample pooled t statistic including the pooled variance and degrees of freedom, and also the least squares formulas for the slope and intercept in simple linear regression. Please use proper math notation."
+   ],
+   "results": [
+    {
+     "student": "Write out the formula for the two-sample pooled t statistic including the pooled variance and degrees of freedom, and also the least squares formulas for the slope and intercept in simple linear regression. Please use proper math notation.",
+     "status": 200,
+     "bear": "Let's break down the formulas you're looking for by connecting them to the concepts we cover in regression and two-sample testing. \n\nAccording to course materials like *Introductory Statistics for the Life and Biomedical Sciences* (Chapters 5 and 6), let's start with the two-sample pooled $t$-test. \n\n### 1. Two-Sample Pooled $t$-Statistic\nWhen we assume two independent groups share a common population variance, we pool our sample variances to gain a better estimate. \n\n* **Pooled Variance ($s_{\\text{pooled}}^2$):** \n  $$s_{\\text{pooled}}^2 = \\frac{s_1^2(n_1 - 1) + s_2^2(n_2 - 1)}{n_1 + n_2 - 2}$$\n* **Degrees of Freedom:**\n  $$\\text{df} = n_1 + n_2 - 2$$\n* **Pooled $t$-Statistic:**\n  Using the pooled standard error, how do you think the numerator (the difference in sample means $\\bar{x}_1 - \\bar{x}_2$) is scaled by the standard error containing $s_{\\text{pooled}}$ and the sample sizes?\n\n---\n\n### 2. Simple Linear Regression: Slope and Intercept\nFor simple linear regression, we estimate the population relationship using least squares (e.g., *Introductory Statistics for the Life and Biomedical Sciences*, Section 6.2). \n\n* **Slope ($b_1$):** \n  The slope can be calculated using the standard deviations of $x$ and $y$ along with their correlation coefficient ($r$):\n  $$b_1 = r \\left(\\frac{s_y}{s_x}\\right)$$\n* **Intercept ($b_0$):**\n  Once you have the slope $b_1$, how does the least-squares line pass through the point defined by the means of $x$ and $y$ ($\\bar{x}$ and $\\bar{y}$) to solve for $b_0$?\n\nTo help build your intuition:\n1. Why might pooling standard deviations be advantageous if the assumption of equal variances holds true?\n2. Looking at the formula for $b_1$, what does the correlation coefficient $r$ tell us about the sign of the slope?",
+     "seconds": 2.5,
+     "total_seconds": 2.5,
+     "retries": 0,
+     "model": "gemini-flash-lite",
+     "plots": 0,
+     "sources": [
+      "Introductory Statistics for the Life and Biomedical Sciences - 5.3.5 Pooled standard deviation estimate",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.4 Statistical inference with regression",
+      "Introductory Statistics for the Life and Biomedical Sciences - 6.2 Estimating a regression line using least squares",
+      "Online Statistics Education (Lane et al.) - 21. Glossary",
+      "Online Statistics Education (Lane et al.) - 14. Regression > Introduction to Linear Regression"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+  "_note": "Web pages are not copied into this repo. The index workflow downloads them from their original sites and indexes the text.",
+  "pages": [
+    {
+      "title": "UCLA OARC: Logit Regression (R Data Analysis Examples)",
+      "url": "https://stats.oarc.ucla.edu/r/dae/logit-regression/"
+    },
+    {
+      "title": "UCLA OARC: Mixed Effects Logistic Regression (R Data Analysis Examples)",
+      "url": "https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/"
+    },
+    {
+      "title": "UCLA OARC: Multinomial Logistic Regression (R Data Analysis Examples)",
+      "url": "https://stats.oarc.ucla.edu/r/dae/multinomial-logistic-regression/"
+    },
+    {
+      "title": "UCLA OARC: Ordinal Logistic Regression (R Data Analysis Examples)",
+      "url": "https://stats.oarc.ucla.edu/r/dae/ordinal-logistic-regression/"
+    },
+    {
+      "title": "UCLA OARC: Poisson Regression (R Data Analysis Examples)",
+      "url": "https://stats.oarc.ucla.edu/r/dae/poisson-regression/"
+    },
+    {
+      "title": "SSCC (UW-Madison): Generalized Linear Models in R",
+      "url": "https://sscc.wisc.edu/sscc/pubs/glm-r/"
+    },
+    {
+      "title": "Regression Modelling for Biostatistics 1, Ch. 3: Binary Covariates, Outliers, and Influential Observations",
+      "url": "https://bookdown.org/stephane_heritier/RM1TEST/003-binary_covariates_and_outliers.html"
+    },
+    {
+      "title": "Regression Modelling for Biostatistics 1, Ch. 6: Interaction and Collinearity",
+      "url": "https://bookdown.org/stephane_heritier/RM1TEST/006-interaction_collinearity.html"
+    },
+    {
+      "title": "Regression Modelling for Biostatistics 1, Ch. 8: Model Building and Variable Selection",
+      "url": "https://bookdown.org/stephane_heritier/RM1TEST/008-model_building.html"
+    },
+    {
+      "title": "Regression Modelling for Biostatistics 1, Ch. 9: Logistic Regression Basics",
+      "url": "https://bookdown.org/stephane_heritier/RM1TEST/009-logistic_regression_intro.html"
+    },
+    {
+      "title": "Regression Modelling for Biostatistics 1, Ch. 10: Logistic Regression - Interactions, Residuals, Predictions",
+      "url": "https://bookdown.org/stephane_heritier/RM1TEST/010-logistic_regression_conf_inter.html"
+    },
+    {
+      "title": "Regression Modelling for Biostatistics 1, Ch. 11: Logistic Regression - Splines and ROC",
+      "url": "https://bookdown.org/stephane_heritier/RM1TEST/011-logistic_regression_splines_validation.html"
+    },
+    {
+      "title": "Beyond Multiple Linear Regression (Roback & Legler)",
+      "url": "https://bookdown.org/roback/bookdown-BeyondMLR/",
+      "follow_chapters": true
+    }
+  ]
+}

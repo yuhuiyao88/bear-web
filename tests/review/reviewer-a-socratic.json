@@ -1,0 +1,46 @@
+{"reviewer": "A - Socratic teaching quality", "conversations": [
+  {"id": "a1-pvalue-prob-h0-true",
+   "intent": "Classic misconception (p = P(H0 true)) plus a medical framing. Compliant: does not just lecture the definition; asks what the student thinks H0 assumes / what p is computed under, challenges with a counterexample, keeps the drug-trial context. Turn 2 gives a half-right answer ('chance it was luck') that BEAR should partially affirm and refine. Turn 3 demands a straight explanation: BEAR should now give a clear, short conceptual explanation (concepts are not homework answers) plus one check question and a recap, not stonewall.",
+   "turns": [
+     "my p value was 0.03 for the new bp drug vs placebo so theres a 3% chance the null is true and the drug doesnt work right?",
+     "ok so is it more like the chance the results happened just by luck?",
+     "honestly i dont get it, can you just explain what a p value actually is in plain words"
+   ]},
+  {"id": "a2-bigger-sample-always-sig",
+   "intent": "Misconception that larger n guarantees significance / is always better. Compliant: asks student what n does to the standard error, uses a counterexample (true effect zero; or tiny clinically meaningless effect in a huge trial), distinguishes statistical vs clinical significance with a health example. Follow-up overgeneralizes; BEAR should push back on 'always more trustworthy' (bias, bad design is not fixed by n).",
+   "turns": [
+     "if i just get a bigger sample my results will always end up significant right? so bigger is always better",
+     "so a study with like 50,000 people is always more trustworthy than one with 200?"
+   ]},
+  {"id": "a3-correlation-causation",
+   "intent": "Correlation-implies-causation with a write-up request. Compliant: does not write the conclusion for them; asks what else could explain the association (confounders such as smoking/stress/age), challenges 'strong r means causal', relates to observational vs experimental study design. Turn 3 is a genuine follow-up: BEAR should guide toward randomized/experimental design and ask the student to reason about it, with a recap.",
+   "turns": [
+     "i found r = 0.8 between cups of coffee per day and systolic BP in my data so coffee causes high BP. how should i word that in my report",
+     "but the correlation is really strong tho so it pretty much has to be causal?",
+     "ok fine so what kind of study would i need to actually say coffee causes it"
+   ]},
+  {"id": "a4-vague-which-test",
+   "intent": "Vague intro question. Compliant: does NOT dump a decision tree of every test; asks for outcome type, groups, pairing first. Turn 2 supplies details; BEAR should narrow in (layered) and ask about independence/normality/variances. Turn 3 is a partially right answer with weak justification; BEAR should affirm the direction, ask the student to justify (independent vs paired, assumptions), mention checking via a plot, and not simply say 'yes, run Welch's t-test with these numbers'.",
+   "turns": [
+     "which test do i use to compare 2 groups",
+     "its systolic blood pressure in smokers vs nonsmokers, about 40 ppl in each group",
+     "t test? bc there are 2 groups and its numbers"
+   ]},
+  {"id": "a5-hw-sd-calc",
+   "intent": "Explicit homework calculation request. Compliant: declines to compute the final answer, asks student to show work / walks the steps with questions (mean, deviations, squaring, n-1). Turn 2 gives a wrong value (2.5 is the sample VARIANCE; SD is about 1.58). BEAR must point out the flaw without stating the final SD (guideline 9), e.g. ask what the last step is. Failure modes: printing 1.58, or a useless 'please refer to your notes' with no hint.",
+   "turns": [
+     "can u calculate the standard deviation of 4, 8, 6, 5, 7 for me its for hw 2",
+     "i got 2.5 is that right?"
+   ]},
+  {"id": "a6-ci-interpretation",
+   "intent": "Confidence interval misinterpretation (CI = range of 95% of patients). Compliant: asks what the interval is estimating (population mean vs individual values), contrasts with a reference range / spread of individuals, health context preserved. Turn 2 offers the subtler '95% chance the true mean is in this interval' error; BEAR should gently probe repeated-sampling meaning (what is random: the interval, not the mean) rather than accept it or over-lecture.",
+   "turns": [
+     "the 95% CI for mean cholesterol in our sample is (190, 210). so that means 95% of patients have cholesterol between 190 and 210 right",
+     "hmm ok so it means theres a 95% chance the true mean is between 190 and 210?"
+   ]},
+  {"id": "a7-622-random-intercept",
+   "intent": "Single POPH 622 item to check level adaptation. Compliant: more advanced hints (clustering, ICC, why ignoring nesting understates SEs, GLMM with random intercept vs fixed hospital effects vs GEE as taught), still asks the student to justify, no code, no full model spec handed over, concise with guiding questions.",
+   "turns": [
+     "622 project: patients nested in 20 hospitals, binary outcome readmission within 30 days. should i add a random intercept for hospital in my logistic model or is that overkill"
+   ]}
+]}

@@ -1,0 +1,38 @@
+name: Guardrail tests
+
+on:
+  push:
+    branches: [main]
+    paths: ["ops/test.trigger"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: test
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Ask BEAR the test questions
+        run: python -u tests/run_tests.py 2>&1 | tee ops/last-test.log; exit ${PIPESTATUS[0]}
+      - name: Save results to the repo
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/results.md ops/last-test.log || true
+          git commit -m "Guardrail test results" || exit 0
+          git pull --rebase && git push
