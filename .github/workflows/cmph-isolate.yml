@@ -1,0 +1,19 @@
+name: Remove reused Gemini credential from SPARK
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CLEANUP_CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLEANUP_CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Remove only the copied Gemini secret from cmph-spark
+        run: node cmph/scripts/isolate.mjs
