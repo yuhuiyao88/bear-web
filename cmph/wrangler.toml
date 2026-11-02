@@ -1,0 +1,24 @@
+name = "cmph-spark"
+main = "worker/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+[assets]
+directory = "public"
+binding = "ASSETS"
+run_worker_first = true
+[ai]
+binding = "AI"
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "cmph-spark-public"
+[[durable_objects.bindings]]
+name = "CATALOG"
+class_name = "Catalog"
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Catalog"]
+[vars]
+GEMINI_MODEL = "gemini-flash-latest"
+PUBLIC_APP_NAME = "SPARK"
+[observability]
+enabled = false

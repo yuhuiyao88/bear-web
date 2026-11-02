@@ -1,0 +1,58 @@
+name: CMPH monthly research
+on:
+  schedule:
+    - cron: '0 8 1 * *'
+    - cron: '0 8 2 * *'
+  workflow_dispatch:
+    inputs:
+      corpus:
+        description: Public corpus to research
+        type: choice
+        options: [both, nih, faculty]
+        default: both
+permissions:
+  contents: read
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    strategy:
+      fail-fast: false
+      matrix:
+        corpus: [nih, faculty]
+    concurrency:
+      group: cmph-research-${{ matrix.corpus }}
+      cancel-in-progress: false
+    defaults:
+      run:
+        working-directory: cmph
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CMPH_ADMIN_TOKEN: ${{ secrets.CMPH_ADMIN_TOKEN }}
+      CORPUS: ${{ matrix.corpus }}
+      REQUESTED_CORPUS: ${{ inputs.corpus }}
+      SCHEDULE: ${{ github.event.schedule }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: cmph/package-lock.json
+      - run: npm ci --ignore-scripts
+      - name: Research and publish the selected monthly snapshot
+        run: |
+          if [[ -n "$SCHEDULE" ]]; then
+            [[ "$SCHEDULE" == '0 8 1 * *' && "$CORPUS" == nih || "$SCHEDULE" == '0 8 2 * *' && "$CORPUS" == faculty ]] || exit 0
+          elif [[ "$REQUESTED_CORPUS" != both && "$REQUESTED_CORPUS" != "$CORPUS" ]]; then
+            exit 0
+          fi
+          export CMPH_URL="$(node scripts/url.mjs)"
+          node scripts/research.mjs "$CORPUS"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cmph-research-${{ matrix.corpus }}-${{ github.run_id }}
+          path: cmph/research-output/
+          if-no-files-found: ignore

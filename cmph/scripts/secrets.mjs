@@ -1,0 +1,1 @@
+const map={GEMINI_API_KEY:'GEMINI_API_KEY',ACCESS_CODE:'CMPH_ACCESS_CODE',ADMIN_TOKEN:'CMPH_ADMIN_TOKEN'};const out={};for(const [target,source] of Object.entries(map)){if(!process.env[source])throw new Error(`Required repository secret missing: ${source}`);out[target]=process.env[source];}process.stdout.write(JSON.stringify(out));
