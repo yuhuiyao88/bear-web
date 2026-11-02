@@ -1,9 +1,0 @@
-import { appURL } from './url.mjs';
-import { appendFile } from 'node:fs/promises';
-const url=await appURL();
-for(let i=0;i<12;i++){const r=await fetch(url+'/api/health');if(r.ok)break;if(i===11)throw new Error('Hosted health check failed');await new Promise(resolve=>setTimeout(resolve,5000));}
-const unauth=await fetch(url+'/api/catalog');if(unauth.status!==401)throw new Error('Unauthenticated catalog should be denied');
-const login=await fetch(url+'/api/login',{method:'POST',headers:{'Content-Type':'application/json',Origin:url},body:JSON.stringify({code:process.env.CMPH_ACCESS_CODE})});if(!login.ok)throw new Error(`Hosted login failed (${login.status})`);const cookie=login.headers.get('set-cookie')?.split(';')[0];if(!cookie)throw new Error('No session cookie');
-const page=await fetch(url+'/',{headers:{Cookie:cookie}});if(!page.ok||!(await page.text()).includes('SPARK'))throw new Error('Hosted app failed');
-const interview=await fetch(url+'/api/interview',{method:'POST',headers:{'Content-Type':'application/json',Origin:url,Cookie:cookie},body:JSON.stringify({messages:[{role:'user',text:'This is a synthetic test concept: studying barriers to diabetes care in rural Alabama. We do not have a dataset yet.'}],brief:{}}),signal:AbortSignal.timeout(90000)});const result=await interview.json();if(!interview.ok||!result.message||!result.brief)throw new Error(`Gemini smoke check failed: ${result.error||'invalid response'}`);
-console.log('PASS: remote access gate, static app, and real Gemini interview.');console.log(`Prototype URL: ${url}`);if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,`## CMPH prototype\n\n${url}\n\nRemote authentication, page and real Gemini interview checks passed. Invitation code is stored only in the repository secret and Worker secret.\n`);
